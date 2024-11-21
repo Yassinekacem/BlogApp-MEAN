@@ -1,0 +1,5 @@
+{
+    "mongo_url": "mongodb://localhost:27017/blogapp", 
+    "jwtSecret" : "jwtSecret" , 
+    "tokenExpiry" : "2592000"    
+}
