@@ -1,0 +1,50 @@
+.form-container{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.rest-container{
+    flex: 1;
+}
+
+.section-header {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.logo-image{
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+.text-auth{
+    font-size: 1rem;
+}
+
+.underlined-text:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.text-auth a{
+    text-decoration: none;
+    color: inherit;
+}
+
+@media (max-width: 420px) {
+
+    .form-container {
+        padding: 50px 20px;
+    }
+
+}
+
+.logo-image-container:hover{
+    cursor: pointer;
+}
+
+.b-color{
+    background-color: #678DA7 !important;
+}

@@ -1,0 +1,35 @@
+.image-container{
+    width: calc(65%);
+    background-color: #678da7;
+    min-height: 100%;
+}
+
+.content-container{
+    width: calc(40%);
+}
+
+.form-container{
+    padding: 50px;
+}
+
+.side-image{
+    height: 100vh;
+    object-fit: contain;
+    width: 100%;
+}
+
+.first-container{
+    min-height: 80%;
+}
+
+@media (max-width: 1000px) {
+
+    .image-container {
+        display: none !important;
+    }
+
+    .content-container{
+        width: 100%;
+    }
+
+}

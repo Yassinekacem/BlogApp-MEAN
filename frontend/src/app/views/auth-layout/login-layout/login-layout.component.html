@@ -1,0 +1,45 @@
+<div class="form-container d-flex flex-column h-100">
+    <div class="text-center"><a routerLink="/"><img src="images/blog.png" class="logo-image"></a></div>
+    <div class="rest-container">
+        <div>
+            <h1 class="section-header">Login</h1>
+            <form class="mt-4" >
+                <!-- email -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input id="email" formControlName="email" matInput placeholder="Email">
+                    <!-- <div *ngIf="thereIsError('email')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+
+                <!-- password -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input id="phone" formControlName="password" type="password" matInput placeholder="Enter password">
+                    <!-- <div *ngIf="thereIsError('password')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+                <p class="m-0 text-auth text-end"><a routerLink="/auth/forgot-password">Forgot password ?</a></p>
+                <button mat-flat-button type="submit" 
+                    class="d-flex align-items-center justify-content-center mt-4 w-100 b-color">
+                    <!-- <div *ngIf="submitIsLoading" class="spinner-border spinner-border-sm mr-2">
+                        <span class="visually-hidden">Loading...</span>
+                    </div> -->
+                    Login
+                </button>
+            </form>
+        </div>
+
+    </div>
+    <div class="text-center mt-5">
+        <p class="text-auth">You don't have an account ? <a routerLink="/auth/register"><strong
+                    class="underlined-text">Signup</strong></a>
+        </p>
+    </div>
+</div>

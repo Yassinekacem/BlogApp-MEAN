@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Post = require('../../models/Post');
 const User = require('../../models/User'); 
-
+const upload = require('../../middleware/upload');
 
 // obtenir toutes les posts 
 router.get('/all', async (req, res) => {
@@ -53,7 +53,7 @@ router.get("/user/:userId", async (req, res) => {
 
 
 // ajouter un post 
-router.post("/add", async (req, res) => {
+router.post("/add", upload.any('image') , async (req, res) => {
     const { title, content, userId } = req.body;
 
     if (!title || !content || !userId) {
@@ -71,6 +71,10 @@ router.post("/add", async (req, res) => {
             content,
             userId
         });
+
+        if (req.files.length > 0) {
+            newPost.image = req.files[0].path;
+        }
 
         const savedPost = await newPost.save();
         return res.status(201).json({ msg: 'Post créé avec succès', post: savedPost });

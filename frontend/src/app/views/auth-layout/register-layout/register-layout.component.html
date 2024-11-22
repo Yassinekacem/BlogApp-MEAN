@@ -1,0 +1,80 @@
+<div class="form-container">
+    <div class="text-center"><a routerLink="/"><img src="images/blog.png" class="logo-image"></a></div>
+    <div class="rest-container">
+        <div>
+            <h2 class="section-header text-center">Register</h2>
+            <form  class="mt-4" >
+
+                <!-- first name -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>First name</mat-label>
+                    <input id="firstName" formControlName="firstName" matInput placeholder="Enter your first name">
+                    <!-- <div *ngIf="thereIsError('firstName')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+
+                <!-- last name -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Last name</mat-label>
+                    <input id="lastName" formControlName="lastName" matInput placeholder="Enter your last name">
+                    <!-- <div *ngIf="thereIsError('lastName')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+
+                <!-- email -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input id="email" formControlName="email" matInput placeholder="Enter your email">
+                    <!-- <div *ngIf="thereIsError('email')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+
+                <!-- password -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input id="password" formControlName="password" type="password" matInput
+                        placeholder="Enter your password">
+                    <!-- <div *ngIf="thereIsError('password')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+
+                <!-- repassword -->
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Re-enter Password</mat-label>
+                    <input id="repassword" formControlName="repassword" type="password" matInput
+                        placeholder="Re-enter your password">
+                    <!-- <div *ngIf="thereIsError('repassword')">
+                        <small class="text-danger">
+                            This field is required.
+                        </small>
+                    </div> -->
+                </mat-form-field>
+                <button mat-flat-button type="submit" 
+                    class="d-flex align-items-center justify-content-center mt-4 w-100 b-color">
+                    <!-- <div *ngIf="submitIsLoading" class="spinner-border spinner-border-sm mr-2">
+                        <span class="visually-hidden">Loading...</span>
+                    </div> -->
+                    Signup
+                </button>
+            </form>
+        </div>
+
+    </div>
+    <div class="text-center mt-5">
+        <p class="text-auth">You already have an account ? <a routerLink="/auth/login"><strong
+                    class="underlined-text">Login</strong></a>
+        </p>
+    </div>
+</div>

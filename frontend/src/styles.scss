@@ -1,0 +1,211 @@
+/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+@include mat.core();
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+@import "bootstrap/scss/bootstrap";
+
+$md-bluepalette: (
+  50: #e8f4fb,
+  100: #c5e3f4,
+  200: #9fd1ed,
+  300: #78bee6,
+  400: #5bb0e0,
+  500: #3ea2db,
+  600: #389ad7,
+  700: #3090d2,
+  800: #2886cd,
+  900: #1b75c4,
+  A100: #f9fcff,
+  A200: #c6e3ff,
+  A400: #93c9ff,
+  A700: #7abdff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-greypalette: (
+  50: #e7e7e7,
+  100: #c3c2c4,
+  200: #9b9a9d,
+  300: #737275,
+  400: #555358,
+  500: #37353a,
+  600: #313034,
+  700: #2a282c,
+  800: #232225,
+  900: #161618,
+  A100: #6a6af6,
+  A200: #3a3af3,
+  A400: #0000fa,
+  A700: #0000e0,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+$my-primary: mat.define-palette($md-greypalette);
+$my-accent: mat.define-palette($md-bluepalette);
+
+$mat-typography: mat.define-typography-config(
+  $font-family: "Rubik",
+  $body-2:
+    mat.define-typography-level(
+      $font-size: 16px,
+      $font-weight: 400,
+      $font-family: Rubik,
+    ),
+  $body-1:
+    mat.define-typography-level(
+      $font-size: 18px,
+      $font-weight: 400,
+      $font-family: Rubik,
+    ),
+  $caption:
+    mat.define-typography-level(
+      $font-size: 16px,
+      $font-weight: Medium,
+      $font-family: Rubik,
+    ),
+  $button:
+    mat.define-typography-level(
+      $font-size: 16px,
+      $font-weight: 500,
+      $font-family: Rubik,
+    ),
+);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($my-theme);
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.spinner {
+  margin-top: 100px;
+}
+
+mat-spinner {
+  zoom: 0.7;
+}
+
+.remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body{
+  padding-bottom: 0 !important;
+}
+
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+
+  &.app-notification-error {
+    --mdc-snackbar-container-color: #e35d6a;
+  }
+
+  &.app-notification-info {
+    --mdc-snackbar-container-color: #3ea2db;
+  }
+
+  &.app-notification-success {
+    --mdc-snackbar-container-color: #6cc070;
+  }
+}
+
+.floating-icon{
+  transition: all 0.3s ease;
+  color:  #FF1493 !important;
+  &:hover{
+      transform: scale(1.2);
+      animation: beating 1s ease-in-out infinite;
+  }
+}
+
+.floating-save-icon{
+  transition: all 0.3s ease;
+  color: #2886cd !important;
+  &:hover{
+      transform: scale(1.2);
+      animation: beating 1s ease-in-out infinite;
+  }
+}
+
+@keyframes beating {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes placeholderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0; 
+  }
+}
+
+.shimmer-effect {
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #e7e7e7 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: relative; 
+  animation-duration: 1s;
+  animation-fill-mode: forwards; 
+  animation-iteration-count: infinite;
+  animation-name: placeholderShimmer;
+  animation-timing-function: linear;
+  }
+
+  
+  .custom-snackbar button{
+    color: #fff !important;
+    --mat-mdc-button-persistent-ripple-color: currentColor;
+}
