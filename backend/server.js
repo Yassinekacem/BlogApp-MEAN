@@ -6,7 +6,8 @@ const cors = require('cors');
 const users = require('./routes/api/users');  
 const posts = require('./routes/api/posts'); 
 const comments = require('./routes/api/comments');
-
+const likes = require('./routes/api/likes');    
+const invitations = require('./routes/api/Invitations');
 
 
 // initialisation de l'application
@@ -26,7 +27,10 @@ mongoose
 // routes
 app.use("/api/users" , users)   
 app.use("/api/posts" , posts)
-app.use("/api/comments" , comments)
+app.use("/api/comments" , comments) 
+app.use("/api/likes" , likes)  
+app.use("/api/invitations" , invitations)  
+
 
 
 const port = process.env.PORT || 2000;  
