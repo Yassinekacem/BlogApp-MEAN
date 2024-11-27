@@ -8,6 +8,8 @@ import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { UpHeaderComponent } from './layouts/home-layout/up-header/up-header.component';
+import { FooterComponent } from './layouts/home-layout/footer/footer.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,18 @@ import { UpHeaderComponent } from './layouts/home-layout/up-header/up-header.com
     MainAuthComponent,
     HomeLayoutComponent,
     UpHeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [
+    provideClientHydration()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
