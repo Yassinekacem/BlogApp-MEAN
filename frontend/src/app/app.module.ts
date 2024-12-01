@@ -10,6 +10,8 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
 import { UpHeaderComponent } from './layouts/home-layout/up-header/up-header.component';
 import { FooterComponent } from './layouts/home-layout/footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()
