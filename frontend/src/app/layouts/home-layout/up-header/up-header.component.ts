@@ -16,4 +16,19 @@ export class UpHeaderComponent {
     this.router.navigate(['auth/login']);
   }
 
+  notificationCount: number = 5;  // Exemple
+  friendRequestCount: number = 2; // Exemple
+
+
+  notifications = [
+    { message: 'New comment on your post' },
+    { message: 'New like on your photo' },
+    { message: 'You have a meeting at 3 PM' }
+  ];
+
+  friendRequests = [
+    { name: 'John Doe' },
+    { name: 'Jane Smith' }
+  ];
+
 }

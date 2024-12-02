@@ -5,12 +5,14 @@ import { PostRoutingModule } from './post-routing.module';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 @NgModule({
   declarations: [
     CreatePostComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    EditPostComponent
   ],
   imports: [
     CommonModule,

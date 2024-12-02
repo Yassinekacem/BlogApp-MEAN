@@ -86,24 +86,33 @@ router.post("/add", upload.any('image') , async (req, res) => {
 
 
 // Mettre à jour un post par ID (PUT)
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { title , content } = req.body;
+
+router.put('/:id', upload.single('image'), async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
   
-    try {
-      const updatedPost = await Post.findByIdAndUpdate(
-        id,
-        { title , content },
-        { new: true }
-      );
-      if (!updatedPost) {
-        return res.status(404).json({ message: 'post non trouvé' });
-      }
-      res.status(200).json({ message: 'post mis à jour avec succès', updatedPost });
-    } catch (error) {
-      res.status(500).json({ message: 'Erreur lors de la mise à jour du post', error });
+  try {
+  
+    // Prepare update data
+    const updateData = { title, content };
+    if (req.file) {
+      updateData.image = req.file.filename; // Adjust path if necessary
     }
-  }); 
+
+    const updatedPost = await Post.findByIdAndUpdate(id, updateData, { new: true });
+    
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post non trouvé' });
+    }
+
+    res.status(200).json({ message: 'Post mis à jour avec succès', updatedPost });
+  } catch (error) {
+    console.error('Error updating post:', error);
+    res.status(500).json({ message: 'Erreur lors de la mise à jour du post', error });
+  }
+});
+
+
 
 
 // Supprimer un post par ID (DELETE)

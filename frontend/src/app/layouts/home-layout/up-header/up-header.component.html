@@ -1,60 +1,95 @@
 <div class="header-height-fix"></div>
-<header class="header-nav">
+<header class="header-nav facebook-style">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <nav class="navbar navbar-expand-lg navbar-light p-0">
-          <!-- logo -->
+          <!-- Logo -->
           <a class="navbar-brand font-weight-bold mb-0" routerLink="/home" title="blogapp">
-            <img class="img-fluid" width="70" height="15" src="images/blog.png" alt="blogapp">
+            <img class="img-fluid" width="40" height="40" src="images/blog.png" alt="blogapp">
           </a>
 
-          <button class="search-toggle d-inline-block d-lg-none ms-auto me-1 me-sm-3" data-toggle="search" aria-label="Search Toggle">
-            <span>Search</span>
-            <svg width="22" height="22" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 15.5L19 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 11C5 14.3137 7.68629 17 11 17C12.6597 17 14.1621 16.3261 15.2483 15.237C16.3308 14.1517 17 12.654 17 11C17 7.68629 14.3137 5 11 5C7.68629 5 5 7.68629 5 11Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navHeader" aria-controls="navHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="ti ti-menu-2 d-inline"></i>
-            <i class="ti ti-x d-none"></i>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navHeader">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/home">Home</a>
-              </li>
-              <li class="nav-item @@about" routerLinkActive="active">
-                <a class="nav-link" routerLink="/home/about">About</a>
-              </li>
-          
-              <li class="nav-item @@archive" routerLinkActive="active">
-                <a class="nav-link" routerLink="/home/privacy">Archive</a>
-              </li>
-              <li class="nav-item @@contact" routerLinkActive="active">
-                <a class="nav-link" routerLink="/home/contact">Contact</a>
-              </li>
-        
-            </ul>
-            
-    
-            
-          </div>
-
-          <button class="profile-button" *ngIf="_auth.isLoggedIn()" [matMenuTriggerFor]="profileMenu">
-            <div class="icon-container">
-              <i class="fas fa-user-circle"></i>
+          <!-- Barre de recherche au centre -->
+          <form class="d-none d-lg-block mx-auto" style="width: 50%;">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search on BlogApp" aria-label="Search">
+              <button class="btn btn-secondary" type="button">
+                <i class="fas fa-search"></i>
+              </button>
             </div>
-          </button>
-          
+          </form>
+
+          <!-- Icônes de navigation principales -->
+          <ul class="navbar-nav d-flex flex-row mx-auto">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/home"><i class="fas fa-home fa-lg"></i></a>
+            </li>
+            <!-- Notifications -->
+            <li class="nav-item">
+              <a class="nav-link" [matMenuTriggerFor]="notificationsMenu">
+                <i class="fas fa-bell fa-lg"></i>
+                <span class="badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+              </a>
+              <mat-menu #notificationsMenu="matMenu">
+                <ng-container *ngIf="notifications.length > 0; else noNotifications">
+                  <button mat-menu-item *ngFor="let notification of notifications">
+                    <mat-icon>notifications</mat-icon>
+                    <span>{{ notification.message }}</span>
+                  </button>
+                </ng-container>
+                <ng-template #noNotifications>
+                  <button mat-menu-item disabled>
+                    <span>No notifications</span>
+                  </button>
+                </ng-template>
+              </mat-menu>
+            </li>
+
+            <!-- Friend Requests -->
+            <li class="nav-item">
+              <a class="nav-link" [matMenuTriggerFor]="friendRequestsMenu">
+                <i class="fas fa-user-friends fa-lg"></i>
+                <span class="badge" *ngIf="friendRequestCount > 0">{{ friendRequestCount }}</span>
+              </a>
+              <mat-menu #friendRequestsMenu="matMenu">
+                <ng-container *ngIf="friendRequests.length > 0; else noFriendRequests">
+                  <button mat-menu-item *ngFor="let request of friendRequests">
+                    <mat-icon>person_add</mat-icon>
+                    <span>{{ request.name }}</span>
+                  </button>
+                </ng-container>
+                <ng-template #noFriendRequests>
+                  <button mat-menu-item disabled>
+                    <span>No friend requests</span>
+                  </button>
+                </ng-template>
+              </mat-menu>
+            </li>
+
+          </ul>
+
+          <!-- Profil et menu utilisateur -->
+          <div class="d-flex align-items-center">
+            <button class="profile-button" *ngIf="_auth.isLoggedIn()" [matMenuTriggerFor]="profileMenu">
+              <div class="icon-container">
+                <i class="fas fa-user-circle fa-lg"></i>
+              </div>
+            </button>
+          </div>
         </nav>
+
+        <!-- Menu utilisateur -->
         <mat-menu #profileMenu="matMenu" xPosition="before">
-          <button mat-menu-item [routerLink]="['/profil/view', _auth.getDataFromToken().id]"> <mat-icon>person</mat-icon> <span
-                  class="item-title">My profile</span></button>
-          <button mat-menu-item routerLink="/my-evaluation" *ngIf="_auth.isAdmin()"> <mat-icon>menu_book</mat-icon> <span class="item-title">Dashboard</span></button>
-          <button mat-menu-item (click)="logOut()"> <mat-icon>logout</mat-icon> <span
-                  class="item-title">Log-out</span></button>
-      </mat-menu>
+          <button mat-menu-item [routerLink]="['/profil/view', _auth.getDataFromToken().id]">
+            <mat-icon>person</mat-icon> <span class="item-title">My profile</span>
+          </button>
+          <button mat-menu-item routerLink="/my-evaluation" *ngIf="_auth.isAdmin()">
+            <mat-icon>menu_book</mat-icon> <span class="item-title">Dashboard</span>
+          </button>
+          <button mat-menu-item (click)="logOut()">
+            <mat-icon>logout</mat-icon> <span class="item-title">Log-out</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
   </div>
