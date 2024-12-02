@@ -33,7 +33,6 @@ export class LoginLayoutComponent {
   loginUser() {
     this.userService.loginUser(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       (response) => {
-        console.log(response);
         // localStorage.setItem('userId', response.userId);
         // localStorage.setItem('userPhoto', response.userPhoto);
 
@@ -62,7 +61,7 @@ export class LoginLayoutComponent {
             'Strict'
           );
 
-          alert('Bienvenue');
+        
           // Vérifiez le token avant de naviguer
           if (this.userService.isTokenValid(token)) {
             this.router.navigate(['/home']);

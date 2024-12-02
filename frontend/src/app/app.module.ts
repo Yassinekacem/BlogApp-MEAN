@@ -12,6 +12,8 @@ import { FooterComponent } from './layouts/home-layout/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './guards/auth.guard';
+import { DeleteModelComponent } from './layouts/delete-model/delete-model.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomeLayoutComponent,
     UpHeaderComponent,
     FooterComponent,
+    DeleteModelComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

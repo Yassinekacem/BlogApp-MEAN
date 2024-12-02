@@ -1,0 +1,40 @@
+.facebook-post {
+    max-width: 100%; /* Ensure the post takes full width of the column */
+    height: 500px; /* Set a fixed height for uniformity */
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
+  }
+  
+  .post-image img {
+    max-height: 250px; /* Limit image height to keep layout consistent */
+    object-fit: cover; /* Ensure image fits within allocated space */
+    width: 100%;
+  }
+  
+  .post-content {
+    max-height: 200px; /* Ensure text content fits within a limited space */
+    overflow-y: auto; /* Scroll if text exceeds */
+  }
+  
+  .post-actions {
+    position: absolute;
+    bottom: 10px; /* Position buttons at the bottom of the post */
+    width: 90%; /* Adjust width to fit inside container */
+  }
+  
+  .unstyled-link {
+    text-decoration: none; /* Removes underline or other decorations */
+    color: inherit; /* Inherits the text color from the parent element */
+  }
+  
+  .unstyled-link:hover, 
+  .unstyled-link:focus, 
+  .unstyled-link:visited {
+    text-decoration: none; /* Ensure styles remain unstyled on interaction */
+    color: inherit;
+  }
+  
+  .wrap-text {
+    white-space: normal; /* Allows text to wrap to the next line */
+    word-wrap: break-word; /* Breaks long words to fit within the container */
+    overflow-wrap: break-word; /* Ensures long words break gracefully */
+  }

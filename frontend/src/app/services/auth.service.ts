@@ -2,17 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, throwError } from 'rxjs';
+import { UserModel } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  apiUrl : string = 'http://localhost:2000/api/users';
+
   constructor(private http:HttpClient,private cookieService: CookieService) { }
 
 
   registerUser(userData: any): Observable<any> {
-    return this.http.post('http://localhost:2000/api/users/register', userData, {
+    return this.http.post(`${this.apiUrl}/register`, userData, {
       headers: {
         'Content-Type': 'application/json'  // Ajoutez ce header si l'API attend du JSON
       }
@@ -21,7 +24,7 @@ export class AuthService {
   }
 
   loginUser(email: string, password: string): Observable<any> {
-    const url = 'http://localhost:2000/api/users/login-user';
+    const url = `${this.apiUrl}/login-user`;
     const body = { email: email, password: password };
 
     return this.http.post<any>(url, body).pipe(
@@ -42,5 +45,31 @@ export class AuthService {
 
   isTokenValid(token: string): boolean{
     return !!token;
+  }
+
+
+  isLoggedIn(): boolean {
+    if (this.cookieService.get('token'))
+      return true
+    return false
+  }
+
+  logout() {
+    this.cookieService.deleteAll();
+  }
+
+  getDataFromToken(): any {
+    let token = this.cookieService.get('token')
+    if (!token) {
+      return null;
+    }
+    const payload = token.split('.')[1];
+    const decodedPayload = window.atob(payload);
+    const data =  JSON.parse(decodedPayload);
+    return data
+  }
+
+  getUserById(userId: string):Observable<UserModel> {
+    return this.http.get<UserModel>(`${this.apiUrl}/${userId}`);
   }
 }

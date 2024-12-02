@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardFooter, MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MatCardFooter, MatCardModule } from '@angular/material/card';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    MatIconModule,
+    MatMenuModule,
+    
   ],
   exports: [
     MatInputModule,
@@ -30,7 +32,7 @@ import { MatCardFooter, MatCardModule } from '@angular/material/card';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    MatIconModule,
+    MatMenuModule
   ],
 })
 export class MaterialModule { }

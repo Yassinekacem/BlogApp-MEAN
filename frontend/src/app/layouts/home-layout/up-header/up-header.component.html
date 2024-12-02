@@ -41,13 +41,20 @@
             
           </div>
 
-          <button class="profile-button">
+          <button class="profile-button" *ngIf="_auth.isLoggedIn()" [matMenuTriggerFor]="profileMenu">
             <div class="icon-container">
-              <i class="fas fa-user-circle" routerLink="/profil"></i>
+              <i class="fas fa-user-circle"></i>
             </div>
           </button>
           
         </nav>
+        <mat-menu #profileMenu="matMenu" xPosition="before">
+          <button mat-menu-item [routerLink]="['/profil/view', _auth.getDataFromToken().id]"> <mat-icon>person</mat-icon> <span
+                  class="item-title">My profile</span></button>
+          <button mat-menu-item routerLink="/my-evaluation" *ngIf="_auth.isAdmin()"> <mat-icon>menu_book</mat-icon> <span class="item-title">Dashboard</span></button>
+          <button mat-menu-item (click)="logOut()"> <mat-icon>logout</mat-icon> <span
+                  class="item-title">Log-out</span></button>
+      </mat-menu>
       </div>
     </div>
   </div>

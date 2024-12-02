@@ -8,6 +8,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { MaterialModule } from '../../material/material.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
   ],
   imports: [
     CommonModule,
-    HomeConnectedRoutingModule
+    HomeConnectedRoutingModule,
+    MaterialModule
   ]
 })
 export class HomeConnectedModule { }
