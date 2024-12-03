@@ -1,4 +1,4 @@
-<div class="header-height-fix"></div>
+<!-- <div class="header-height-fix"></div> -->
 <header class="header-nav facebook-style">
   <div class="container">
     <div class="row">
@@ -83,7 +83,7 @@
           <button mat-menu-item [routerLink]="['/profil/view', _auth.getDataFromToken().id]">
             <mat-icon>person</mat-icon> <span class="item-title">My profile</span>
           </button>
-          <button mat-menu-item routerLink="/my-evaluation" *ngIf="_auth.isAdmin()">
+          <button mat-menu-item  *ngIf="_auth.isAdmin()">
             <mat-icon>menu_book</mat-icon> <span class="item-title">Dashboard</span>
           </button>
           <button mat-menu-item (click)="logOut()">

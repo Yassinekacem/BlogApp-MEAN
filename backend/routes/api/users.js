@@ -67,7 +67,7 @@ router.get('/all' , async (req , res) => {
     const {id} = req.params 
   
     try { 
-      const user = await User.findByIdAndUpdate(id) 
+      const user = await User.findById(id) 
       if (!user ) { 
         return res.status(404).json({message : 'user not found'}) 
   
