@@ -3,12 +3,12 @@
     <div class="rest-container">
         <div>
             <h2 class="section-header text-center">Register</h2>
-            <form  class="mt-4" >
+            <form  class="mt-4" (submit)="register()" [formGroup]="registerForm">
 
                 <!-- first name -->
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>First name</mat-label>
-                    <input id="firstName" formControlName="firstName" matInput placeholder="Enter your first name">
+                    <input id="firstName" matInput formControlName="firstName" placeholder="Enter your first name" [(ngModel)]="user.firstName" required>
                     <!-- <div *ngIf="thereIsError('firstName')">
                         <small class="text-danger">
                             This field is required.
@@ -19,7 +19,7 @@
                 <!-- last name -->
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Last name</mat-label>
-                    <input id="lastName" formControlName="lastName" matInput placeholder="Enter your last name">
+                    <input id="lastName" formControlName="lastName" matInput placeholder="Enter your last name"  [(ngModel)]="user.lastName" required>
                     <!-- <div *ngIf="thereIsError('lastName')">
                         <small class="text-danger">
                             This field is required.
@@ -30,7 +30,7 @@
                 <!-- email -->
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input id="email" formControlName="email" matInput placeholder="Enter your email">
+                    <input id="email" formControlName="email" matInput placeholder="Enter your email"  [(ngModel)]="user.email" required>
                     <!-- <div *ngIf="thereIsError('email')">
                         <small class="text-danger">
                             This field is required.
@@ -42,7 +42,7 @@
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Password</mat-label>
                     <input id="password" formControlName="password" type="password" matInput
-                        placeholder="Enter your password">
+                        placeholder="Enter your password"  [(ngModel)]="user.password" required>
                     <!-- <div *ngIf="thereIsError('password')">
                         <small class="text-danger">
                             This field is required.
@@ -51,16 +51,16 @@
                 </mat-form-field>
 
                 <!-- repassword -->
-                <mat-form-field class="w-100" appearance="outline">
+                <!-- <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Re-enter Password</mat-label>
                     <input id="repassword" formControlName="repassword" type="password" matInput
-                        placeholder="Re-enter your password">
-                    <!-- <div *ngIf="thereIsError('repassword')">
+                        placeholder="Re-enter your password" required>
+                    <div *ngIf="thereIsError('repassword')">
                         <small class="text-danger">
                             This field is required.
                         </small>
-                    </div> -->
-                </mat-form-field>
+                    </div>
+                </mat-form-field> -->
                 <button mat-flat-button type="submit" 
                     class="d-flex align-items-center justify-content-center mt-4 w-100 b-color">
                     <!-- <div *ngIf="submitIsLoading" class="spinner-border spinner-border-sm mr-2">
@@ -73,7 +73,7 @@
 
     </div>
     <div class="text-center mt-5">
-        <p class="text-auth">You already have an account ? <a routerLink="/auth/login"><strong
+        <p class="text-auth">You already have an account ? <a routerLink="/login"><strong
                     class="underlined-text">Login</strong></a>
         </p>
     </div>

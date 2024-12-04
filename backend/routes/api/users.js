@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
 const config = require('config');
+const upload = require('../../middleware/upload');
 
 // Route d'inscription
 router.post("/register", async (req, res) => {
@@ -67,7 +68,7 @@ router.get('/all' , async (req , res) => {
     const {id} = req.params 
   
     try { 
-      const user = await User.findByIdAndUpdate(id) 
+      const user = await User.findById(id) 
       if (!user ) { 
         return res.status(404).json({message : 'user not found'}) 
   
@@ -123,14 +124,20 @@ router.get('/all' , async (req , res) => {
 
 
 // Mettre à jour un utilisateur par ID (UPDATE)
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('image'),async (req, res) => {
     const { id } = req.params;
-    const { firstName , lastName, email, password, role } = req.body;
+    const { firstName , lastName, email , description } = req.body;
   
     try {
+
+      const updateData = { firstName , lastName, email , description };
+      if (req.file) {
+        updateData.image = req.file.filename; 
+      }
+
       const updatedUser = await User.findByIdAndUpdate(
         id,
-        { firstName , lastName , email, password, role },
+        updateData ,
         { new: true }
       );
       if (!updatedUser) {

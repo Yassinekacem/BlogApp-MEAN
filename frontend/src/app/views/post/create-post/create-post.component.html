@@ -1,0 +1,30 @@
+<section class="section-sm">
+    <div class="container">
+
+
+        <h2 class="text-center"> Create Post </h2>
+
+        <form [formGroup]="postForm">
+            <div class="col-6 mx-auto">
+
+
+
+                <input type="text" class="form-control m-1" placeholder="title" formControlName="title">
+
+
+                <input type="file" class="form-control m-1" placeholder="image" (change)="onSelectFile($event)">
+                <textarea title="content" id="" cols="30" rows="4" placeholder="content" class="form-control m-1"
+                    formControlName="content"></textarea>
+
+                <!-- <div class="m-1">
+                <textarea  [placeholder]="'Enter text here...'" ></textarea>
+
+                </div> -->
+
+                <button class="btn btn-dark form-control m-1" type="submit" (click)="create()">create</button>
+
+            </div>
+
+        </form>
+    </div>
+</section>

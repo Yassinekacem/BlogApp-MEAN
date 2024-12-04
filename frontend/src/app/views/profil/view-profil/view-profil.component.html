@@ -1,0 +1,89 @@
+<section class="page-header section-sm">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="row g-4 g-lg-5 text-center text-lg-start justify-content-center justify-content-lg-start">
+            <div class="col-lg-3 col-md-4 col-sm-5 col-6">
+              <img class="img-fluid rounded" [src]="'http://localhost:2000/getImage/' + user?.image" alt="Thomas Macaulay" width="250" height="250">
+            </div>
+            <div class="col-lg-9 col-md-12">
+              <p class="mb-2"><span class="fw-bold text-black">{{ postNumber }}</span> Published posts</p>
+              <div class="justify-content-between d-flex align-items-center">
+                <h1 class="h3 text-dark mb-3">{{user?.firstName != null ? user?.firstName : 'Firstname'}}
+                  {{user?.lastName != null ? user?.lastName : 'Lastname'}}</h1>
+                  <button class="btn btn-dark rounded-circle p-2 d-flex align-items-center justify-content-center edit-button"
+                  *ngIf="currentUser()"
+                  routerLink="/profil/edit"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+              </div>
+                <div class="content">
+                <p>{{ user?.description }}</p>
+                <p>Email Adress : <a target="_blank">{{ user?.email != null ? user?.email : 'email' }}</a>.</p>
+                <button class="btn btn-primary" routerLink="/post/create" *ngIf="currentUser()"> Add New post </button>
+                <button class="btn btn-info align-items-center d-flex gap-3"  *ngIf="!currentUser()">
+                  <mat-icon>person_add</mat-icon>
+                  Send Friend Request
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="container">
+    <div class="row gy-5 gx-4 g-xl-5 justify-content-center" >
+      <div class="col-lg-5" *ngFor="let post of postsUser">
+        <article class="facebook-post border rounded p-3 mb-3 bg-white position-relative">
+           <!-- Profile and Timestamp -->
+           <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center">
+              <img [src]="'http://localhost:2000/getImage/' + user?.image" alt="Thomas Macaulay" class="rounded-circle me-2" width="40" height="40">
+              <div>
+                <a [routerLink]="['/profil/view', post.userId._id ]" class="fw-bold text-dark unstyled-link">{{ post.userId.firstName }} {{post.userId.lastName}}</a>
+                <div class="text-muted small">{{ post.createdAt | date }}</div>
+              </div>
+            </div>
+            
+            <!-- Mat-Menu for edit/delete -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isAuthor(post)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['/post/edit', post._id ]">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="deletePost(post)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </div>
+          
+          <!-- Post Content -->
+          <div class="post-content mb-2">
+            <a [routerLink]="['/post/show', post._id ]" class="unstyled-link"><h5 class="fw-normal">{{ post.title }}</h5></a>
+            <p class="wrap-text">{{ post.content }}</p>
+          </div>
+          
+          <!-- Post Image -->
+          <div class="post-image mb-2" *ngIf="post.image">
+            <img class="img-fluid rounded" [src]="'http://localhost:2000/getImage/' + post.image" alt="Post Image">
+          </div>
+          
+          <!-- Interaction Section -->
+          <div class="post-actions d-flex justify-content-around pt-2 border-top">
+            <button class="btn btn-light text-muted"><i class="ti ti-thumb-up"></i> Like</button>
+            <button class="btn btn-light text-muted"><i class="ti ti-comment"></i> Comment</button>
+            <button class="btn btn-light text-muted"><i class="ti ti-share"></i> Share</button>
+          </div>
+        </article>
+        
+      </div>
+ 
+    </div>
+  </div>

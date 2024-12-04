@@ -1,0 +1,35 @@
+<section class="section-sm">
+    <div class="container">
+
+
+        <h2 class="text-center"> Edit Profil </h2>
+
+        <form [formGroup]="updateForm" (submit)="editProfil()">
+            <div class="col-6 mx-auto">
+
+                <input type="text" class="form-control m-1" placeholder="firstName" formControlName="firstName">
+
+                <input type="text" class="form-control m-1" placeholder="lastName" formControlName="lastName">
+
+                <input type="email" class="form-control m-1" placeholder="email" formControlName="email">
+                
+                <input type="file" class="form-control m-1" placeholder="image" (change)="onSelectFile($event)">
+
+                <textarea title="description" id="" cols="30" rows="4" placeholder="description" class="form-control m-1"
+                    formControlName="description"></textarea>
+
+                
+
+                <button type="submit" class="btn btn-dark form-control m-1" [disabled]="loading">
+                    {{ loading ? 'Update...' : 'Update' }}
+                  </button>
+
+                <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                    {{ errorMessage }}
+                </div>  
+
+            </div>
+
+        </form>
+    </div>
+</section>

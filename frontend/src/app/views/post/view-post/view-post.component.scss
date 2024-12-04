@@ -1,0 +1,30 @@
+.comment-input {
+    border-radius: 20px;
+    background-color: #f0f2f5;
+    border: none;
+  }
+  
+  .comment-input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  .btn-link {
+    text-decoration: none;
+    color: #6c757d;
+  }
+  
+  .btn-link:hover {
+    text-decoration: underline;
+    color: #495057;
+  }
+  
+  .nested-reply {
+    margin-left: 50px;
+  }
+  
+  .wrap-text {
+    white-space: normal; /* Allows text to wrap to the next line */
+    word-wrap: break-word; /* Breaks long words to fit within the container */
+    overflow-wrap: break-word; /* Ensures long words break gracefully */
+  }

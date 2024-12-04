@@ -3,7 +3,7 @@
     <div class="rest-container">
         <div>
             <h1 class="section-header">Login</h1>
-            <form class="mt-4" >
+            <form class="mt-4" [formGroup]="loginForm" (submit)="loginUser()">
                 <!-- email -->
                 <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Email</mat-label>
@@ -38,7 +38,7 @@
 
     </div>
     <div class="text-center mt-5">
-        <p class="text-auth">You don't have an account ? <a routerLink="/auth/register"><strong
+        <p class="text-auth">You don't have an account ? <a routerLink="/register"><strong
                     class="underlined-text">Signup</strong></a>
         </p>
     </div>

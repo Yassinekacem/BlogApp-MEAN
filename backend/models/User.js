@@ -13,13 +13,20 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true,
     } , 
+    description : {
+        type : String,
+        required : false,
+    } , 
+    image: {
+        type: String,
+    },
     password : {
         type : String,
         required : true,
     } , 
     role : { 
         type : String , 
-        default : 'admin'} 
+        default : 'user'} 
 }); 
 
 const user = mongoose.model('User', userSchema); 

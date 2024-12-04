@@ -1,0 +1,39 @@
+.my-link {
+    text-decoration: none;
+  }
+
+  .facebook-post {
+    max-width: 600px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .facebook-post .post-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .facebook-post .post-actions button:hover {
+    background: #f0f2f5;
+    border-radius: 5px;
+  }
+  
+  .facebook-post img {
+    object-fit: cover;
+  }
+  
+  .unstyled-link {
+    text-decoration: none; /* Removes underline or other decorations */
+    color: inherit; /* Inherits the text color from the parent element */
+  }
+  
+  .wrap-text {
+    white-space: normal; /* Allows text to wrap to the next line */
+    word-wrap: break-word; /* Breaks long words to fit within the container */
+    overflow-wrap: break-word; /* Ensures long words break gracefully */
+  }
+  
+   
+
+  

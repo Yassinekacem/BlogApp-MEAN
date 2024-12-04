@@ -1,0 +1,8 @@
+<h2 mat-dialog-title class="m-0">{{data.title}}</h2>
+<mat-dialog-content class="mat-typography" class="py-3">
+    <p>{{data.description}}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pb-3 px-4 pt-0">
+    <button mat-flat-button mat-dialog-close cdkFocusInitial color="primary">Cancel</button>
+    <button mat-flat-button (click)="confirm()" color="warn">{{ data.leave != null ? "Leave" : "Delete"}}</button>
+</mat-dialog-actions>

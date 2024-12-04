@@ -5,6 +5,7 @@ import { RegisterLayoutComponent } from './register-layout/register-layout.compo
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
 import { MaterialModule } from '../../material/material.module';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { CommonModule } from '@angular/common';
   imports: [
     AuthLayoutRoutingModule,
     MaterialModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthLayoutModule { }

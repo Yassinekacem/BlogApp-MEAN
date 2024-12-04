@@ -1,0 +1,80 @@
+<section class="section-sm pb-0">
+  <div class="container">
+    <!-- Post Header -->
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="d-flex align-items-center mb-4">
+          <img [src]="'http://localhost:2000/getImage/' + post?.userId?.image" alt="Thomas Macaulay" class="rounded-circle me-2" width="50" height="50">
+          <div>
+            <a [routerLink]="['/profil/view', post?.userId?._id ]" class="fw-bold text-dark d-block">{{post?.userId?.firstName}} {{post?.userId?.lastName}}</a>
+            <div class="text-muted small">{{ post?.createdAt | date }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post Image -->
+    <div class="row justify-content-center" *ngIf="post?.image">
+      <div class="col-lg-10 text-center">
+        <img class="img-fluid rounded mb-4" [src]="'http://localhost:2000/getImage/' + post?.image" alt="Post Image">
+      </div>
+    </div>
+
+    <!-- Post Content -->
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <h3 class="fw-normal mb-3">{{ post?.title }}</h3>
+        <p class="wrap-text">{{ post?.content }}</p>
+      </div>
+    </div>
+
+    <!-- Interaction Section -->
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="d-flex justify-content-around pt-3 border-top">
+          <button class="btn btn-light text-muted"><i class="ti ti-thumb-up"></i> Like</button>
+          <button class="btn btn-light text-muted"><i class="ti ti-comment"></i> Comment</button>
+          <button class="btn btn-light text-muted"><i class="ti ti-share"></i> Share</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <!-- Comment Input -->
+        <div class="d-flex mb-3">
+          <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="40" height="40">
+          <input type="text" class="form-control" placeholder="Write a comment...">
+        </div>
+
+        <!-- Sample Comments -->
+        <div *ngFor="let comment of comments" class="d-flex mb-2">
+          <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="40" height="40">
+          <div>
+            <p class="mb-1">
+              <strong>{{ comment.author }}</strong> {{ comment.text }}
+            </p>
+            <div class="text-muted small">2 hours ago</div>
+            <button class="btn btn-link p-0 text-muted small" (click)="comment.showReply = !comment.showReply">Reply</button>
+
+            <!-- Reply Input -->
+            <div *ngIf="comment.showReply" class="d-flex mt-2">
+              <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
+              <input type="text" class="form-control" placeholder="Write a reply..." (keyup.enter)="addReply(comment, $event)">       
+            </div>
+
+            <!-- Nested Replies -->
+            <div *ngFor="let reply of comment.replies" class="d-flex mt-2 ms-5">
+              <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
+              <div>
+                <p class="mb-1"><strong>{{ reply.author }}</strong> {{ reply.text }}</p>
+                <div class="text-muted small">1 hour ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -30,6 +30,7 @@ app.use("/api/posts" , posts)
 app.use("/api/comments" , comments) 
 app.use("/api/likes" , likes)  
 app.use("/api/invitations" , invitations)  
+app.use("/getImage", express.static('./images'));
 
 
 

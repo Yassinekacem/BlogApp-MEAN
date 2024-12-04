@@ -6,19 +6,38 @@ import { AppComponent } from './app.component';
 import { MainAuthComponent } from './layouts/main-auth/main-auth.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { UpHeaderComponent } from './layouts/home-layout/up-header/up-header.component';
+import { FooterComponent } from './layouts/home-layout/footer/footer.component';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './guards/auth.guard';
+import { DeleteModelComponent } from './layouts/delete-model/delete-model.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainAuthComponent,
+    HomeLayoutComponent,
+    UpHeaderComponent,
+    FooterComponent,
+    DeleteModelComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    provideClientHydration(),
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
