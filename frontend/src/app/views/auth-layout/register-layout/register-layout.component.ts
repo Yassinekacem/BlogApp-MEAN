@@ -39,7 +39,7 @@ export class RegisterLayoutComponent {
       (response) => {
         console.log(response);
         alert('Inscription réussie:');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/login']);
       },
       (error) => {
         console.error('Erreur lors de l\'inscription:', error);

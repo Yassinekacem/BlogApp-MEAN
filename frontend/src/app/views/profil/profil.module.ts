@@ -5,6 +5,7 @@ import { ProfilRoutingModule } from './profil-routing.module';
 import { EditProfilComponent } from './edit-profil/edit-profil.component';
 import { ViewProfilComponent } from './view-profil/view-profil.component';
 import { MaterialModule } from '../../material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,8 +16,8 @@ import { MaterialModule } from '../../material/material.module';
   imports: [
     CommonModule,
     ProfilRoutingModule,
-    MaterialModule
-
+    MaterialModule,
+    ReactiveFormsModule 
   ]
 })
 export class ProfilModule { }

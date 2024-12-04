@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ViewProfilComponent } from './view-profil/view-profil.component';
+import { EditProfilComponent } from './edit-profil/edit-profil.component';
 
 const routes: Routes = [
 
@@ -10,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'edit',
-    component: ViewProfilComponent
+    component: EditProfilComponent
   },
 
 ];

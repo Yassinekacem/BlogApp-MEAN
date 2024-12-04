@@ -72,4 +72,9 @@ export class AuthService {
   getUserById(userId: string):Observable<UserModel> {
     return this.http.get<UserModel>(`${this.apiUrl}/${userId}`);
   }
+
+
+  updateUserById(userId: string, userData: any):Observable<UserModel> {
+    return this.http.put<UserModel>(`${this.apiUrl}/${userId}`, userData);
+  }
 }

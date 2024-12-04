@@ -46,6 +46,12 @@ export class ViewProfilComponent implements OnInit {
     )
   }
 
+  currentUser(){
+    if (this.id == this.auth.getDataFromToken().id )
+        return true;
+    return false
+  }
+
 
   deletePost(postToDelete: Post) {
     const dialogRef = this.dialog.open(DeleteModelComponent, {

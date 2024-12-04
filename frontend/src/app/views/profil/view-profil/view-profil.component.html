@@ -4,16 +4,28 @@
         <div class="col-lg-10">
           <div class="row g-4 g-lg-5 text-center text-lg-start justify-content-center justify-content-lg-start">
             <div class="col-lg-3 col-md-4 col-sm-5 col-6">
-              <img class="img-fluid rounded" src="assets/images/author/thomas-macaulay.jpg" alt="Thomas Macaulay" width="250" height="250">
+              <img class="img-fluid rounded" [src]="'http://localhost:2000/getImage/' + user?.image" alt="Thomas Macaulay" width="250" height="250">
             </div>
             <div class="col-lg-9 col-md-12">
               <p class="mb-2"><span class="fw-bold text-black">{{ postNumber }}</span> Published posts</p>
-              <h1 class="h3 text-dark mb-3">{{user?.firstName != null ? user?.firstName : 'Firstname'}}
-                {{user?.lastName != null ? user?.lastName : 'Lastname'}}</h1>
-              <div class="content">
-                <p>Thomas Macaulay is a writer based in New York City. He&rsquo;s interested in all things tech, science, and photography related, and likes to yo-yo in his free time.</p>
+              <div class="justify-content-between d-flex align-items-center">
+                <h1 class="h3 text-dark mb-3">{{user?.firstName != null ? user?.firstName : 'Firstname'}}
+                  {{user?.lastName != null ? user?.lastName : 'Lastname'}}</h1>
+                  <button class="btn btn-dark rounded-circle p-2 d-flex align-items-center justify-content-center edit-button"
+                  *ngIf="currentUser()"
+                  routerLink="/profil/edit"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+              </div>
+                <div class="content">
+                <p>{{ user?.description }}</p>
                 <p>Email Adress : <a target="_blank">{{ user?.email != null ? user?.email : 'email' }}</a>.</p>
-                <button class="btn btn-dark" routerLink="/post/create" > Add New post </button>
+                <button class="btn btn-primary" routerLink="/post/create" *ngIf="currentUser()"> Add New post </button>
+                <button class="btn btn-info align-items-center d-flex gap-3"  *ngIf="!currentUser()">
+                  <mat-icon>person_add</mat-icon>
+                  Send Friend Request
+                </button>
               </div>
             </div>
           </div>
@@ -29,7 +41,7 @@
            <!-- Profile and Timestamp -->
            <div class="d-flex align-items-center justify-content-between mb-2">
             <div class="d-flex align-items-center">
-              <img src="assets/images/author/thomas-macaulay.jpg" alt="Thomas Macaulay" class="rounded-circle me-2" width="40" height="40">
+              <img [src]="'http://localhost:2000/getImage/' + user?.image" alt="Thomas Macaulay" class="rounded-circle me-2" width="40" height="40">
               <div>
                 <a [routerLink]="['/profil/view', post.userId._id ]" class="fw-bold text-dark unstyled-link">{{ post.userId.firstName }} {{post.userId.lastName}}</a>
                 <div class="text-muted small">{{ post.createdAt | date }}</div>

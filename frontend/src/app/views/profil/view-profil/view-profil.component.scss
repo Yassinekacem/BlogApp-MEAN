@@ -38,3 +38,12 @@
     word-wrap: break-word; /* Breaks long words to fit within the container */
     overflow-wrap: break-word; /* Ensures long words break gracefully */
   }
+
+  .edit-button {
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 100%; /* Forme arrondie */
+    padding: 10px; /* Espacement interne */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s; /* Effet au survol */
+  }

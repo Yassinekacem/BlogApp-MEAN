@@ -7,7 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component:MainAuthComponent ,
     //canActivateChild: [BypassGuard],
     loadChildren: () => import("./views/auth-layout/auth-layout.module").then(m => m.AuthLayoutModule)
@@ -16,9 +16,9 @@ const routes: Routes = [
   path: '',
   component: HomeLayoutComponent,
   children: [
-    {
-      path: '', redirectTo: 'home', pathMatch: 'full'
-    },
+    // {
+    //   path: '', redirectTo: 'home', pathMatch: 'full'
+    // },
     {
       path: 'home',
       loadChildren: () => import("./views/home-connected/home-connected.module").then(m => m.HomeConnectedModule)
@@ -34,8 +34,8 @@ const routes: Routes = [
     },
     
     ]
- }
-
+ },
+ { path: '', redirectTo: 'auth', pathMatch: 'full' },
 
 
 ];

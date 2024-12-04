@@ -25,7 +25,7 @@
             <!-- Profile and Timestamp -->
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div class="d-flex align-items-center">
-                <img src="assets/images/author/thomas-macaulay.jpg" alt="Thomas Macaulay" class="rounded-circle me-2" width="40" height="40">
+                <img [src]="'http://localhost:2000/getImage/' + post.userId.image" alt="Thomas Macaulay" class="rounded-circle me-2" width="40" height="40">
                 <div>
                   <a [routerLink]="['/profil/view', post.userId._id ]" class="fw-bold text-dark unstyled-link">{{ post.userId.firstName }} {{post.userId.lastName}}</a>
                   <div class="text-muted small">{{ post.createdAt | date }}</div>

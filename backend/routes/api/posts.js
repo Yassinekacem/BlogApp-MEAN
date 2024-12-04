@@ -6,7 +6,7 @@ const upload = require('../../middleware/upload');
 // obtenir toutes les posts 
 router.get('/all', async (req, res) => {
     try {
-      const posts = await Post.find().populate('userId', 'firstName lastName email'); 
+      const posts = await Post.find().populate('userId', 'firstName lastName email image'); 
         return res.status(200).json(posts);
     } catch (err) {
         return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const post = await Post.findById(id).populate('userId', 'firstName lastName email');
+        const post = await Post.findById(id).populate('userId', 'firstName lastName email image');
         if (!post) {
             return res.status(404).json({ msg: 'Post introuvable' });
         }
@@ -99,7 +99,8 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       updateData.image = req.file.filename; // Adjust path if necessary
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(id, updateData, { new: true });
+    const updatedPost = await Post.findByIdAndUpdate(
+      id, updateData, { new: true });
     
     if (!updatedPost) {
       return res.status(404).json({ message: 'Post non trouvé' });

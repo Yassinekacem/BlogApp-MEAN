@@ -36,7 +36,6 @@ export class EditPostComponent implements OnInit{
 
     this.route.params.subscribe(params => {
       this.postid = params['id'];
-      console.log(this.postid);
     })
 
 

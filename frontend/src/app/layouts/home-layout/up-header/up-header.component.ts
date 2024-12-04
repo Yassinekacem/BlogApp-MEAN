@@ -13,7 +13,7 @@ export class UpHeaderComponent {
 
   logOut(){
     this._auth.logout();
-    this.router.navigate(['auth/login']);
+    this.router.navigate(['/login']);
   }
 
   notificationCount: number = 5;  // Exemple
