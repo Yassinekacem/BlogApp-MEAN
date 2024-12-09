@@ -1,0 +1,6 @@
+.wrap-text {
+    max-width: 200px; /* Adjust the maximum width as needed */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis;
+  }

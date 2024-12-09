@@ -1,91 +1,41 @@
-import { Component } from '@angular/core';
-import { PostService } from '../../../services/post.service';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Post } from '../../../models/Post.model';
-import { UserModel } from '../../../models/User.model';
-import { DeleteModelComponent } from '../../../layouts/delete-model/delete-model.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { PostService } from '../../../services/post.service';
 import { AuthService } from '../../../services/auth.service';
-import { LikesService } from '../../../services/likes.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteModelComponent } from '../../../layouts/delete-model/delete-model.component';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrl: './post.component.scss'
+  selector: 'app-manage-posts',
+  templateUrl: './manage-posts.component.html',
+  styleUrl: './manage-posts.component.scss'
 })
-export class PostComponent {
+export class ManagePostsComponent implements OnInit {
 
   posts : Post[] = [];
   filteredPosts: Post[] = [];
-  postLiked: boolean = false;
 
 
   constructor(private postService:PostService,
               private auth:AuthService,
               private dialog: MatDialog,
               private snackbar: MatSnackBar,
-              private likesService: LikesService,
+
 
   ) { }
 
   ngOnInit(): void {
     this.postService.getAllPosts().subscribe(
-      (res) => {
+      res=>{
         this.posts = res;
-  
-        // Itérer sur chaque post et récupérer les likes
-        this.posts.forEach((post) => {
-          this.likesService.getLikes(post._id).subscribe(
-            (likeCount) => {
-              post.likes = likeCount.count; 
-            },
-            (err) => {
-              console.error(`Error fetching likes for post`, err);
-            }
-          );
-        });
       },
-      (err) => {
-        console.error('Error fetching posts:', err);
+      err=>{
+        console.log(err);
       }
-    );
-  }
+  )}
 
-  addLike(post: Post): void {
-    this.likesService.likePost(post._id, this.auth.getDataFromToken().id).subscribe(
-      (res) => {
-        if (res.message === 'Like added') {
-          this.postLiked = true;
-          post.likes++;
-        }else{
-          this.postLiked = false;
-          post.likes--;
-        }
-        
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  }
-  
-
-  // fetchLikeCount(post: Post): void {
-  //   this.likesService.getLikes(post._id).subscribe(
-  //     (res) => {
-  //       console.log(res);
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
-
-
-  isAuthor(post: Post): boolean {
-    return this.auth.getDataFromToken().id === post.userId._id;
-  }
+ 
 
 
 
@@ -140,6 +90,5 @@ export class PostComponent {
   }
 
 
-  
 
 }

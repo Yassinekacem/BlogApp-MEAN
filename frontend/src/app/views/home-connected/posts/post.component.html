@@ -63,7 +63,11 @@
           
             <!-- Interaction Section -->
             <div class="post-actions d-flex justify-content-around pt-2 border-top">
-              <button class="btn btn-light text-muted"><i class="ti ti-thumb-up"></i> Like</button>
+              <button class="btn" (click)="addLike(post)">
+                <i class="fa-regular fa-thumbs-up" *ngIf="!postLiked"></i>
+                <i class="fa-solid fa-thumbs-up" *ngIf="postLiked"></i> 
+                {{ post.likes || 0 }}
+              </button>
               <button class="btn btn-light text-muted"><i class="ti ti-comment"></i> Comment</button>
               <button class="btn btn-light text-muted"><i class="ti ti-share"></i> Share</button>
             </div>
