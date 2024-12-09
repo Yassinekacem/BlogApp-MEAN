@@ -1,0 +1,48 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Posts</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the <a target="_blank"
+            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">List of Posts</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Author email</th>
+                            <th>Edit post</th>
+                            <th>Delete post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let post of posts">
+                            <td>{{post.title}}</td>
+                            <td><p class="wrap-text">{{ post.content }}</p></td>
+                            <td>{{post.userId.email}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" [routerLink]="['/admin/edit-post', post._id ]">
+                                    <i class="fas fa-edit"></i> <!-- Icône d'édition -->
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" (click)="deletePost(post)">
+                                    <i class="fas fa-trash"></i> <!-- Icône de suppression -->
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

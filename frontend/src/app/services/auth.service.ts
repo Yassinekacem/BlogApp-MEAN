@@ -77,4 +77,12 @@ export class AuthService {
   updateUserById(userId: string, userData: any):Observable<UserModel> {
     return this.http.put<UserModel>(`${this.apiUrl}/${userId}`, userData);
   }
+
+  getAllUsers():Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${this.apiUrl}/all`);
+  }  
+
+  deleteUser(userId: string):Observable<UserModel> {
+    return this.http.delete<UserModel>(`${this.apiUrl}/${userId}`);
+  }
 }

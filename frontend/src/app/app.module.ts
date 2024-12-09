@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
 import { DeleteModelComponent } from './layouts/delete-model/delete-model.component';
+import { DashboardComponent } from './layouts/admin-dashboard/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DeleteModelComponent } from './layouts/delete-model/delete-model.compon
     UpHeaderComponent,
     FooterComponent,
     DeleteModelComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

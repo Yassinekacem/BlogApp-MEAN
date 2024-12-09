@@ -4,6 +4,7 @@ import { MainAuthComponent } from './layouts/main-auth/main-auth.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { CreatePostComponent } from './views/post/create-post/create-post.component';
 import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './layouts/admin-dashboard/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,16 @@ const routes: Routes = [
     component:MainAuthComponent ,
     //canActivateChild: [BypassGuard],
     loadChildren: () => import("./views/auth-layout/auth-layout.module").then(m => m.AuthLayoutModule)
+  },
+  {
+    path: 'admin',
+    component: DashboardComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import("./views/admin-dashboard/admin-dashboard.module").then(m => m.AdminDashboardModule)
+      },
+    ]
   },
  {
   path: '',

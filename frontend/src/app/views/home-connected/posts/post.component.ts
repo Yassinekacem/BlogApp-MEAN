@@ -6,6 +6,7 @@ import { DeleteModelComponent } from '../../../layouts/delete-model/delete-model
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from '../../../services/auth.service';
+import { LikesService } from '../../../services/likes.service';
 
 
 @Component({
@@ -17,25 +18,70 @@ export class PostComponent {
 
   posts : Post[] = [];
   filteredPosts: Post[] = [];
+  postLiked: boolean = false;
 
 
   constructor(private postService:PostService,
               private auth:AuthService,
               private dialog: MatDialog,
               private snackbar: MatSnackBar,
-
+              private likesService: LikesService,
 
   ) { }
 
   ngOnInit(): void {
     this.postService.getAllPosts().subscribe(
-      res=>{
+      (res) => {
         this.posts = res;
+  
+        // Itérer sur chaque post et récupérer les likes
+        this.posts.forEach((post) => {
+          this.likesService.getLikes(post._id).subscribe(
+            (likeCount) => {
+              post.likes = likeCount.count; 
+            },
+            (err) => {
+              console.error(`Error fetching likes for post`, err);
+            }
+          );
+        });
       },
-      err=>{
-        console.log(err);
+      (err) => {
+        console.error('Error fetching posts:', err);
       }
-  )}
+    );
+  }
+
+  addLike(post: Post): void {
+    this.likesService.likePost(post._id, this.auth.getDataFromToken().id).subscribe(
+      (res) => {
+        if (res.message === 'Like added') {
+          this.postLiked = true;
+          post.likes++;
+        }else{
+          this.postLiked = false;
+          post.likes--;
+        }
+        
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+  
+
+  // fetchLikeCount(post: Post): void {
+  //   this.likesService.getLikes(post._id).subscribe(
+  //     (res) => {
+  //       console.log(res);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
 
   isAuthor(post: Post): boolean {
     return this.auth.getDataFromToken().id === post.userId._id;
