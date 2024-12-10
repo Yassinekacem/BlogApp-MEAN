@@ -6,11 +6,12 @@ import { DeleteModelComponent } from '../../../layouts/delete-model/delete-model
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from '../../../services/auth.service';
+import { LikesService } from '../../../services/likes.service';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'] // Corrigé : "styleUrl" devient "styleUrls"
+  styleUrls: ['./post.component.scss'] 
 })
 export class PostComponent implements OnInit {
 

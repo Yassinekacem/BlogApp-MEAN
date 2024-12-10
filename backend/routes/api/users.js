@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 const config = require('config');
 const upload = require('../../middleware/upload');
 
@@ -126,11 +127,11 @@ router.get('/all' , async (req , res) => {
 // Mettre à jour un utilisateur par ID (UPDATE)
 router.put('/:id', upload.single('image'),async (req, res) => {
     const { id } = req.params;
-    const { firstName , lastName, email , description } = req.body;
+    const { firstName , lastName, email , description , role} = req.body;
   
     try {
 
-      const updateData = { firstName , lastName, email , description };
+      const updateData = { firstName , lastName, email , description ,role};
       if (req.file) {
         updateData.image = req.file.filename; 
       }
@@ -148,6 +149,9 @@ router.put('/:id', upload.single('image'),async (req, res) => {
       res.status(500).json({ message: 'Erreur lors de la mise à jour de l\'utilisateur', error });
     }
   });
+
+
+  
   
   // Supprimer un utilisateur par ID (DELETE)
   router.delete('/:id', async (req, res) => {
@@ -158,6 +162,8 @@ router.put('/:id', upload.single('image'),async (req, res) => {
       if (!deletedUser) {
         return res.status(404).json({ message: 'Utilisateur non trouvé' });
       }
+
+      await Post.deleteMany({ userId: id });
       res.status(200).json({ message: 'Utilisateur supprimé avec succès' });
     } catch (error) {
       res.status(500).json({ message: 'Erreur lors de la suppression de l\'utilisateur', error });
