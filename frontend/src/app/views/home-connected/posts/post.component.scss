@@ -13,6 +13,8 @@
     border: none;
     cursor: pointer;
   }
+
+
   
   .facebook-post .post-actions button:hover {
     background: #f0f2f5;
@@ -36,4 +38,12 @@
   
    
 
+  .btn-primary {
+    background-color: #007bff; /* Bleu */
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Couleur plus foncée pour l'effet hover */
+  }
   

@@ -2,6 +2,8 @@ const router = require('express').Router();
 const Post = require('../../models/Post');
 const User = require('../../models/User'); 
 const upload = require('../../middleware/upload');
+const Like = require('../../models/Like');  
+const Comment = require('../../models/Comment'); 
 
 // obtenir toutes les posts 
 router.get('/all', async (req, res) => {
@@ -15,8 +17,7 @@ router.get('/all', async (req, res) => {
 
 // obtenir un post par son id 
 router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-
+    const { id } = req.params; 
     try {
         const post = await Post.findById(id).populate('userId', 'firstName lastName email image');
         if (!post) {
@@ -131,6 +132,77 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     }
   });
 
+
+
+ 
+
+  // Obtenir le nombre de likes pour un post
+  router.get('/:id/likes', async (req, res) => {
+      const { id } = req.params; // ID du post
+  
+      try {
+          // Compter les likes pour le post donné
+          const likeCount = await Like.countDocuments({ postId: id });
+  
+          return res.status(200).json({ postId: id, likeCount });
+      } catch (err) {
+          return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
+      }
+  });
+ 
+
+
+  // Obtenir le nombre de commentaires pour un post
+router.get('/:id/comments', async (req, res) => {
+  const { id } = req.params; // ID du post
+
+  try {
+      // Compter les commentaires pour le post donné
+      const commentCount = await Comment.countDocuments({ postId: id });
+
+      return res.status(200).json({ postId: id, commentCount });
+  } catch (err) {
+      return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
+  }
+});
+ 
+
+// Vérifier si un utilisateur a aimé un post
+router.get('/:postId/liked-by/:userId', async (req, res) => {
+  const { postId, userId } = req.params; // Récupérer les paramètres
+
+  try {
+      // Chercher un like correspondant à l'utilisateur et au post
+      const likeExists = await Like.findOne({ postId, userId });
+
+      if (likeExists) {
+          return res.status(200).json({ liked: true });
+      } else {
+          return res.status(200).json({ liked: false });
+      }
+  } catch (err) {
+      return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
+  }
+});
+
+
+// Obtenir l'ID du like pour un utilisateur sur un post
+router.get('/:postId/like-id/:userId', async (req, res) => {
+  const { postId, userId } = req.params; // Récupérer les paramètres
+
+  try {
+    // Chercher le like correspondant à l'utilisateur et au post
+    const like = await Like.findOne({ postId, userId });
+
+    if (like) {
+      return res.status(200).json({ likeId: like._id });
+    } else {
+      return res.status(404).json({ msg: "Aucun like trouvé pour cet utilisateur et ce post" });
+    }
+  } catch (err) {
+    return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
+  }
+});
 
 
 
