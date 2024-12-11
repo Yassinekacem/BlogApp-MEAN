@@ -83,44 +83,45 @@ router.get('/all' , async (req , res) => {
  
 
 // route de connexion 
-  router.post("/login-user", (req, res) => {
-    const { email, password } = req.body;
-  
-    if (!email || !password) {
+router.post("/login-user", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
       return res.status(400).json({ error: "Please provide email and password" });
-    }
-  
-    User.findOne({ email: email }).then((user) => {
+  }
+
+  User.findOne({ email: email }).then((user) => {
       if (!user) {
-        return res.status(401).json({ error: "User not found" });
+          return res.status(401).json({ error: "User not found" });
       }
-  
+
       bcrypt.compare(password, user.password).then((isMatch) => {
-        if (!isMatch) {
-          return res.status(401).json({ error: "Incorrect password" });
-        }
-  
-        // Ajoutez ici le rôle de l'utilisateur à la réponse
-        jwt.sign(
-          { id: user.id, role: user.role }, // Incluez le rôle dans le payload du token si nécessaire
-          config.get("jwtSecret"),
-          { expiresIn: config.get("tokenExpiry") },
-          (err, token) => {
-            if (err) {
-              console.error(err);
-              return res.status(500).json({ error: "Internal server error" });
-            }
-  
-            // Retournez le token et le rôle dans la réponse
-            return res.status(200).json({ token, role: user.role });
+          if (!isMatch) {
+              return res.status(401).json({ error: "Incorrect password" });
           }
-        );
+
+          // Inclure l'image dans le payload du token
+          jwt.sign(
+              { id: user.id, role: user.role, image: user.image }, // Ajouter `image` ici
+              config.get("jwtSecret"),
+              { expiresIn: config.get("tokenExpiry") },
+              (err, token) => {
+                  if (err) {
+                      console.error(err);
+                      return res.status(500).json({ error: "Internal server error" });
+                  }
+
+                  // Retourner le token avec l'image
+                  return res.status(200).json({ token, role: user.role, image: user.image });
+              }
+          );
       });
-    }).catch((err) => {
+  }).catch((err) => {
       console.error(err);
       return res.status(500).json({ error: "Internal server error" });
-    });
   });
+});
+
  
 
 

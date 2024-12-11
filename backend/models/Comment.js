@@ -14,7 +14,18 @@ const commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         required: true,
-    },
+    }, 
+    userPhoto: {
+        type: String,
+    },  
+    firstNameUser : {
+        type : String,
+        required : true,
+    } , 
+    lastNameUser : {
+        type : String,
+        required : true,
+    } , 
 } , 
 { timestamps: true }); 
 

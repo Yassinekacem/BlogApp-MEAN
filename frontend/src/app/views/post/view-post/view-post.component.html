@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center mb-4">
           <img [src]="'http://localhost:2000/getImage/' + post?.userId?.image" alt="Thomas Macaulay" class="rounded-circle me-2" width="50" height="50">
           <div>
-            <a [routerLink]="['/profil/view', post?.userId?._id ]" class="fw-bold text-dark d-block">{{post?.userId?.firstName}} {{post?.userId?.lastName}}</a>
+            <a [routerLink]="['/profil/view', post?.userId?._id ]" class="fw-bold text-dark d-block">{{ post?.userId?.firstName }} {{ post?.userId?.lastName }}</a>
             <div class="text-muted small">{{ post?.createdAt | date }}</div>
           </div>
         </div>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Post Content -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center"> 
       <div class="col-lg-10">
         <h3 class="fw-normal mb-3">{{ post?.title }}</h3>
         <p class="wrap-text">{{ post?.content }}</p>
@@ -57,36 +57,26 @@
     <!-- Comment Section -->
     <div class="row justify-content-center mt-4">
       <div class="col-lg-10">
-        <!-- Comment Input -->
-        <div class="d-flex mb-3">
-          <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="40" height="40">
-          <input type="text" class="form-control" placeholder="Write a comment...">
-        </div>
+       <!-- Comment Input -->
+<div class="d-flex mb-3">
+  <img  [src]="'http://localhost:2000/getImage/' + user?.image"  alt="User" class="rounded-circle me-2" width="40" height="40">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Write a comment..."
+    [(ngModel)]="newCommentContent"
+  />
+  <button class="btn btn-primary ms-2" (click)="addComment()">Send</button>
+</div>
 
-        <!-- Sample Comments -->
-        <div *ngFor="let comment of comments" class="d-flex mb-2">
-          <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="40" height="40">
+        <!-- Dynamic Comments -->
+        <div *ngFor="let comment of comments" class="d-flex mb-3">
+          <img [src]="'http://localhost:2000/getImage/' + comment.userId.image" alt="User" class="rounded-circle me-2" width="40" height="40">
           <div>
             <p class="mb-1">
-              <strong>{{ comment.author }}</strong> {{ comment.text }}
+              <strong>{{ comment.userId.firstName }} {{ comment.userId.lastName }}</strong> {{ comment.content }}
             </p>
-            <div class="text-muted small">2 hours ago</div>
-            <button class="btn btn-link p-0 text-muted small" (click)="comment.showReply = !comment.showReply">Reply</button>
-
-            <!-- Reply Input -->
-            <div *ngIf="comment.showReply" class="d-flex mt-2">
-              <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
-              <input type="text" class="form-control" placeholder="Write a reply..." (keyup.enter)="addReply(comment, $event)">       
-            </div>
-
-            <!-- Nested Replies -->
-            <div *ngFor="let reply of comment.replies" class="d-flex mt-2 ms-5">
-              <img src="assets/images/author/thomas-macaulay.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
-              <div>
-                <p class="mb-1"><strong>{{ reply.author }}</strong> {{ reply.text }}</p>
-                <div class="text-muted small">1 hour ago</div>
-              </div>
-            </div>
+            <div class="text-muted small">{{ comment.createdAt | date }}</div>
           </div>
         </div>
       </div>

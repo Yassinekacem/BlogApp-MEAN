@@ -6,7 +6,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditPostComponent } from './edit-post/edit-post.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +15,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     EditPostComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     PostRoutingModule,
     ReactiveFormsModule 
