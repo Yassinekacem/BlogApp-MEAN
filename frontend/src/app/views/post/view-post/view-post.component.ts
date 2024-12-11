@@ -21,6 +21,11 @@ export class ViewPostComponent {
   comments: any[] = []; // Liste des commentaires récupérés via l'API 
   newCommentContent: string = ''; // Contenu du nouveau commentaire
   user: UserModel | undefined ; 
+  isDeleteConfirmationVisible: boolean = false;
+  confirmDeleteCommentId: string | undefined;
+  isEditModalVisible: boolean = false;
+  editCommentId: string | undefined;
+  editCommentContent: string = ''; // Le contenu du commentaire à modifier
 
 
   constructor(
@@ -61,7 +66,11 @@ export class ViewPostComponent {
     );
   }
 
-
+  currentUser(commentUserId: string): boolean {
+    // Comparer l'ID de l'utilisateur connecté avec l'ID de l'utilisateur du commentaire
+    return this.auth.getDataFromToken().id === commentUserId;
+  }
+  
 
   
   // Récupère les commentaires d'un post
@@ -110,9 +119,9 @@ export class ViewPostComponent {
     // Récupérer l'ID de l'utilisateur connecté
     const formData = new FormData();
 
-    formData.append('content', this.newCommentContent); // Contenu du commentaire
-    formData.append('userId', userId); // ID de l'utilisateur
-    formData.append('postId', this.id!); // ID du post
+    formData.append('content', this.newCommentContent);
+    formData.append('userId', userId);
+    formData.append('postId', this.id!); 
     formData.append('userPhoto', this.user!.image);
 
     this.commentsService.addComment(formData).subscribe(
@@ -125,7 +134,73 @@ export class ViewPostComponent {
         console.error('Erreur lors de l\'ajout du commentaire', err);
       }
     );
+  } 
+
+
+
+ // Afficher le modal de confirmation avant de supprimer le commentaire
+ confirmDeleteComment(commentId: string): void {
+  this.isDeleteConfirmationVisible = true;
+  this.confirmDeleteCommentId = commentId || ''; // Utilisez une valeur par défaut si undefined
+}
+
+
+// Annuler la suppression
+cancelDelete(): void {
+  this.isDeleteConfirmationVisible = false;
+  this.confirmDeleteCommentId = undefined;
+}
+
+
+  // Afficher le modal d'édition
+  openEditModal(commentId: string, currentContent: string): void {
+    this.isEditModalVisible = true;
+    this.editCommentId = commentId;
+    this.editCommentContent = currentContent;
   }
+
+
+    // Fermer le modal d'édition
+    closeEditModal(): void {
+      this.isEditModalVisible = false;
+      this.editCommentContent = ''; // Réinitialiser le contenu de l'édition
+    }
+
+
+
+
+    // Mettre à jour le commentaire
+  updateComment(): void {
+    if (!this.editCommentId || !this.editCommentContent) return;
+
+    const updatedComment = { content: this.editCommentContent };
+    
+    this.commentsService.updateComment(this.editCommentId, updatedComment).subscribe(
+      res => {
+        console.log('Commentaire mis à jour avec succès', res);
+        this.fetchComments(this.id!); // Recharger les commentaires
+        this.closeEditModal(); // Fermer le modal
+      },
+      err => {
+        console.error('Erreur lors de la mise à jour du commentaire', err);
+      }
+    );
+  }
+
+// Supprimer le commentaire après confirmation
+deleteComment(commentId: string): void {
+  this.commentsService.deleteComment(commentId).subscribe(
+    () => {
+      this.comments = this.comments.filter(comment => comment._id !== commentId); // Mettre à jour la liste des commentaires
+      this.cancelDelete(); // Fermer le modal
+      console.log('Commentaire supprimé avec succès');
+    },
+    (err) => {
+      console.error('Erreur lors de la suppression du commentaire', err);
+    }
+  );
+}
+
 
   // Gère le like/unlike
   toggleLike(): void {

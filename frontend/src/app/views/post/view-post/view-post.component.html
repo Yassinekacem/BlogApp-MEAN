@@ -54,32 +54,84 @@
       </div>
     </div>
 
-    <!-- Comment Section -->
-    <div class="row justify-content-center mt-4">
-      <div class="col-lg-10">
-       <!-- Comment Input -->
-<div class="d-flex mb-3">
-  <img  [src]="'http://localhost:2000/getImage/' + user?.image"  alt="User" class="rounded-circle me-2" width="40" height="40">
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Write a comment..."
-    [(ngModel)]="newCommentContent"
-  />
-  <button class="btn btn-primary ms-2" (click)="addComment()">Send</button>
-</div>
+<!-- Comment Section -->
+<!-- Comment Section -->
+<div class="row justify-content-center mt-4">
+  <div class="col-lg-10">
+    <!-- Comment Input -->
+    <div class="d-flex mb-3">
+      <img [src]="'http://localhost:2000/getImage/' + user?.image" alt="User" class="rounded-circle me-2" width="40" height="40">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Write a comment..."
+        [(ngModel)]="newCommentContent"
+      />
+      <button class="btn btn-primary ms-2" (click)="addComment()">Send</button>
+    </div>
 
-        <!-- Dynamic Comments -->
-        <div *ngFor="let comment of comments" class="d-flex mb-3">
-          <img [src]="'http://localhost:2000/getImage/' + comment.userId.image" alt="User" class="rounded-circle me-2" width="40" height="40">
-          <div>
-            <p class="mb-1">
-              <strong>{{ comment.userId.firstName }} {{ comment.userId.lastName }}</strong> {{ comment.content }}
-            </p>
-            <div class="text-muted small">{{ comment.createdAt | date }}</div>
-          </div>
+    <!-- Dynamic Comments -->
+    <div *ngFor="let comment of comments" class="d-flex mb-3 align-items-start">
+      <!-- Image de l'utilisateur -->
+      <img [src]="'http://localhost:2000/getImage/' + comment.userId.image" alt="User" class="rounded-circle me-2" width="40" height="40">
+      
+      <!-- Contenu du commentaire et options -->
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <!-- Contenu du commentaire -->
+        <div>
+          <p class="mb-1">
+            <strong>{{ comment.userId.firstName }} {{ comment.userId.lastName }}</strong> {{ comment.content }}
+          </p>
+          <div class="text-muted small">{{ comment.createdAt | date }}</div>
+        </div>
+        
+        <!-- Options avec Mat-Menu, visible uniquement si l'utilisateur connecté est l'auteur du commentaire -->
+        <div *ngIf="currentUser(comment.userId._id)">
+          <button mat-icon-button [matMenuTriggerFor]="commentMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #commentMenu="matMenu">
+            <!-- Option Edit -->
+            <button mat-menu-item (click)="openEditModal(comment._id, comment.content)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <!-- Option Delete -->
+            <button mat-menu-item (click)="confirmDeleteComment(comment._id)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div *ngIf="isDeleteConfirmationVisible" class="modal-overlay">
+  <div class="modal-content">
+    <h5>Are you sure you want to delete this comment?</h5>
+    <div class="d-flex justify-content-around">
+      <button class="btn btn-danger" (click)="confirmDeleteCommentId ? deleteComment(confirmDeleteCommentId) : null">Yes</button>
+      <button class="btn btn-secondary" (click)="cancelDelete()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal d'édition -->
+<div *ngIf="isEditModalVisible" class="modal-overlay">
+  <div class="modal-content">
+    <h5>Edit Comment</h5>
+    <textarea [(ngModel)]="editCommentContent" class="form-control" rows="4"></textarea>
+    <div class="d-flex justify-content-around mt-3">
+      <button class="btn btn-primary" (click)="updateComment()">Save</button>
+      <button class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
   </div>
 </section>
