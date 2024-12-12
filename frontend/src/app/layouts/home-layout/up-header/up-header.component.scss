@@ -66,3 +66,75 @@
   header.header-nav {
     padding: 0.50rem 0; /* Réduction du padding vertical global */
   }
+
+  /* General styling for the friend requests container */
+.friend-request-item {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-bottom: 1px solid #e6e6e6;
+  background-color: #fff;
+  width: 250px;
+}
+
+/* Aligning the request details */
+.friend-request-item div[mat-menu-item] {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+/* Icon next to the name */
+.friend-request-item mat-icon {
+  margin-right: 7px;
+  color: #3b5998;
+  font-size: 1.5rem;
+}
+
+/* Name styling */
+.friend-request-item span {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Buttons container */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Accept button styling */
+.action-buttons button[color="primary"] {
+  background-color: #1877f2;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 15px;
+  text-transform: uppercase;
+}
+
+/* Refuse button styling */
+.action-buttons button[color="warn"] {
+  background-color: #f02849;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 15px;
+  text-transform: uppercase;
+}
+
+/* Hover effects for buttons */
+.action-buttons button:hover {
+  opacity: 0.9;
+}
+
+/* Empty state message */
+mat-menu button[disabled] {
+  color: #999;
+  font-size: 0.9rem;
+  text-align: center;
+}

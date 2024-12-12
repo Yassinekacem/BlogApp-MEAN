@@ -52,11 +52,21 @@
                 <span class="badge" *ngIf="friendRequestCount > 0">{{ friendRequestCount }}</span>
               </a>
               <mat-menu #friendRequestsMenu="matMenu">
-                <ng-container *ngIf="friendRequests.length > 0; else noFriendRequests">
-                  <button mat-menu-item *ngFor="let request of friendRequests">
-                    <mat-icon>person_add</mat-icon>
-                    <span>{{ request.name }}</span>
-                  </button>
+                <ng-container *ngIf="requests.length > 0; else noFriendRequests">
+                  <div *ngFor="let request of requests" class="friend-request-item">
+                    <div mat-menu-item>
+                      <mat-icon>person_add</mat-icon>
+                      <span>{{ request.senderId.firstName }} {{ request.senderId.lastName }}</span>
+                    </div>
+                    <div class="action-buttons">
+                      <button mat-button color="primary" (click)="acceptRequest(request._id)">
+                        Accept
+                      </button>
+                      <button mat-button color="warn" (click)="refuseRequest(request._id)">
+                        Refuse
+                      </button>
+                    </div>
+                  </div>
                 </ng-container>
                 <ng-template #noFriendRequests>
                   <button mat-menu-item disabled>
@@ -65,6 +75,7 @@
                 </ng-template>
               </mat-menu>
             </li>
+            
 
           </ul>
 
