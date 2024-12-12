@@ -15,7 +15,7 @@ export class UpHeaderComponent implements OnInit {
   requests : RequestModel[] = [];
   requestsUsersData : UserModel[] = [];
 
-  notificationCount: number = 0 ;  // Exemple
+  notificationCount: number = 3 ;  // Exemple
   friendRequestCount: number = 0 ; 
   
   constructor( public _auth:AuthService , private router:Router, private requestService:RequestService) { } 
