@@ -34,7 +34,8 @@ import { DashboardComponent } from './layouts/admin-dashboard/dashboard/dashboar
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+     
   ],
   providers: [
     provideClientHydration(),

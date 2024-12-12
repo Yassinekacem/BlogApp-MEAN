@@ -32,6 +32,7 @@ const routes: Routes = [
     // },
     {
       path: 'home',
+      canActivate: [AuthGuard],
       loadChildren: () => import("./views/home-connected/home-connected.module").then(m => m.HomeConnectedModule)
     },
     {
@@ -41,6 +42,7 @@ const routes: Routes = [
     },
     {
       path: 'post', 
+      canActivate: [AuthGuard],
       loadChildren: () => import("./views/post/post.module").then(m => m.PostModule)
     },
     

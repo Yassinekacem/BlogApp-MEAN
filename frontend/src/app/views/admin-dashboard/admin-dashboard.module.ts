@@ -8,6 +8,10 @@ import { ManagePostsComponent } from './manage-posts/manage-posts.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ChartModule } from 'angular-highcharts';
+
+
 
 
 @NgModule({
@@ -21,7 +25,8 @@ import { EditPostComponent } from './edit-post/edit-post.component';
   imports: [
     CommonModule,
     AdminDashboardRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartModule
   ]
 })
 export class AdminDashboardModule { }

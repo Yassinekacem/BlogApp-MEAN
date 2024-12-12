@@ -5,7 +5,16 @@ const User = require('../../models/User');
 
 
 
-
+//obtenir tous les likes
+router.get("/all", async (req, res) => {
+    try {
+        const likes = await Like.find();
+        return res.status(200).json( likes );
+    } catch (err) {
+        return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
+    }
+}
+);
 
 
 

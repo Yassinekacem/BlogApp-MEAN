@@ -28,5 +28,9 @@ updateComment(commentId: string, updatedContent: { content: string }): Observabl
   return this.http.patch(`${this.apiUrl}/${commentId}`, updatedContent);
 }
 
+getAllComments(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/all`);
+}
+
 
 }

@@ -19,4 +19,8 @@ export class LikesService {
     return this.http.post(`${this.apiUrl}/${postId}`, { userId });
   }
 
+  getAllLikes(): Observable<any> {  
+    return this.http.get(`${this.apiUrl}/all`);
+  }
+
 }
