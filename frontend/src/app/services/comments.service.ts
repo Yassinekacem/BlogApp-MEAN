@@ -18,5 +18,15 @@ export class CommentsService {
   // Ajouter un commentaire
   addComment(data: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/add`, data);
-  }
+  } 
+// Supprimer un commentaire
+deleteComment(commentId: string): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/${commentId}`);
+}
+
+updateComment(commentId: string, updatedContent: { content: string }): Observable<any> {
+  return this.http.patch(`${this.apiUrl}/${commentId}`, updatedContent);
+}
+
+
 }

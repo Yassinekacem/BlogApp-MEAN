@@ -41,6 +41,38 @@ router.get("/post/:postId", async (req, res) => {
 
 
 
+// Mettre à jour un commentaire par ID (PATCH)
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;  // Ici, on attend uniquement le 'content' du commentaire
+
+  if (!content) {
+    return res.status(400).json({ msg: 'Veuillez fournir le contenu du commentaire' });
+  }
+
+  try {
+    // Vérifier si le commentaire existe
+    const commentExists = await Comment.findById(id);
+    if (!commentExists) {
+      return res.status(404).json({ msg: 'Commentaire introuvable' });
+    }
+
+    // Mettre à jour uniquement le champ 'content'
+    commentExists.content = content;
+
+    // Sauvegarder les modifications
+    const updatedComment = await commentExists.save();
+    return res.status(200).json({ msg: 'Commentaire mis à jour avec succès', comment: updatedComment });
+
+  } catch (err) {
+    return res.status(500).json({ status: "error", msg: "Erreur interne du serveur", error: err.message });
+  }
+});
+
+
+
+
+
 // ajouter un commentaire  
 router.post("/add", upload.any('userPhoto'), async (req, res) => {
   const { content, userId, postId } = req.body;
